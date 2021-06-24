@@ -1,10 +1,4 @@
-const {
-  create,
-  index,
-  show,
-  destroy,
-  update,
-} = require('./bookHandler');
+const { create, index, show, destroy, update } = require('./bookHandler');
 
 const routes = [
   {

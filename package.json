@@ -1,12 +1,12 @@
 {
-  "name": "backend-dasar",
+  "name": "bookshelf-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "nodemon ./src/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ./"
+    "lint": "eslint ./",
+    "format": "prettier --write \"src/**/*.js\""
   },
   "keywords": [],
   "author": "",
@@ -19,7 +19,10 @@
   "devDependencies": {
     "eslint": "^7.23.0",
     "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.22.1",
-    "nodemon": "^2.0.7"
+    "eslint-plugin-prettier": "^3.4.0",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.3.1"
   }
 }

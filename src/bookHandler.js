@@ -4,7 +4,14 @@ const validation = require('./validation');
 
 const create = (request, h) => {
   const {
-    name, year, author, summary, publisher, pageCount, readPage, reading,
+    name,
+    year,
+    author,
+    summary,
+    publisher,
+    pageCount,
+    readPage,
+    reading,
   } = request.payload;
 
   const id = nanoid(16);
@@ -37,7 +44,8 @@ const create = (request, h) => {
   if (readPage > pageCount) {
     const response = h.response({
       status: 'fail',
-      message: 'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount',
+      message:
+        'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount',
     });
     response.code(400);
     return response;
@@ -78,16 +86,22 @@ const index = (request) => {
   } else if (params.finished === 0) {
     bigCities = books.filter((e) => !e.finished);
   } else if (params.name !== undefined) {
-    bigCities = books.filter((e) => e.name.toLowerCase().includes(params.name.toLowerCase()));
+    bigCities = books.filter((e) =>
+      e.name.toLowerCase().includes(params.name.toLowerCase()),
+    );
   }
 
   if (bigCities === undefined) {
     slicing = books.map((item) => ({
-      id: item.id, name: item.name, publisher: item.publisher,
+      id: item.id,
+      name: item.name,
+      publisher: item.publisher,
     }));
   } else {
     slicing = bigCities.map((item) => ({
-      id: item.id, name: item.name, publisher: item.publisher,
+      id: item.id,
+      name: item.name,
+      publisher: item.publisher,
     }));
   }
 
@@ -124,7 +138,14 @@ const update = (request, h) => {
   const { id } = request.params;
 
   const {
-    name, year, author, summary, publisher, pageCount, readPage, reading,
+    name,
+    year,
+    author,
+    summary,
+    publisher,
+    pageCount,
+    readPage,
+    reading,
   } = request.payload;
 
   const updatedAt = new Date().toISOString();
@@ -132,14 +153,15 @@ const update = (request, h) => {
   if (readPage > pageCount) {
     const response = h.response({
       status: 'fail',
-      message: 'Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount',
+      message:
+        'Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount',
     });
     response.code(400);
     return response;
   }
-  const index = books.findIndex((book) => book.id === id);
+  const findBook = books.findIndex((book) => book.id === id);
   const finished = pageCount === readPage;
-  if (index !== -1) {
+  if (findBook !== -1) {
     const val = validation(request.payload);
 
     if (val.message !== undefined) {
@@ -147,7 +169,7 @@ const update = (request, h) => {
       response.code(400);
       return response;
     }
-    books[index] = {
+    books[findBook] = {
       ...books[index],
       id,
       name,
@@ -179,10 +201,10 @@ const update = (request, h) => {
 const destroy = (request, h) => {
   const { id } = request.params;
 
-  const index = books.findIndex((book) => book.id === id);
+  const findBook = books.findIndex((book) => book.id === id);
 
-  if (index !== -1) {
-    books.splice(index, 1);
+  if (findBook !== -1) {
+    books.splice(findBook, 1);
     const response = h.response({
       status: 'success',
       message: 'Buku berhasil dihapus',
