@@ -75,30 +75,36 @@ const create = (request, h) => {
 
 const index = (request) => {
   const params = request.query;
-  let bigCities;
+  let filterBook;
   let slicing;
-  if (params.reading === 1) {
-    bigCities = books.filter((e) => e.reading);
-  } else if (params.reading === 0) {
-    bigCities = books.filter((e) => !e.reading);
-  } else if (params.finished === 1) {
-    bigCities = books.filter((e) => e.finished);
-  } else if (params.finished === 0) {
-    bigCities = books.filter((e) => !e.finished);
-  } else if (params.name !== undefined) {
-    bigCities = books.filter((e) =>
+  // eslint-disable-next-line eqeqeq
+  if (params.reading == 1) {
+    filterBook = books.filter((e) => e.reading);
+    // eslint-disable-next-line eqeqeq
+  } else if (params.reading == 0) {
+    filterBook = books.filter((e) => !e.reading);
+    // eslint-disable-next-line eqeqeq
+  } else if (params.finished == 1) {
+    filterBook = books.filter((e) => e.finished);
+    // eslint-disable-next-line eqeqeq
+  } else if (params.finished == 0) {
+    filterBook = books.filter((e) => !e.finished);
+    // eslint-disable-next-line eqeqeq
+  } else if (params.name != undefined) {
+    filterBook = books.filter((e) =>
       e.name.toLowerCase().includes(params.name.toLowerCase()),
     );
   }
 
-  if (bigCities === undefined) {
+  // eslint-disable-next-line eqeqeq
+  if (filterBook == undefined) {
     slicing = books.map((item) => ({
       id: item.id,
       name: item.name,
       publisher: item.publisher,
     }));
   } else {
-    slicing = bigCities.map((item) => ({
+    slicing = filterBook.map((item) => ({
       id: item.id,
       name: item.name,
       publisher: item.publisher,
