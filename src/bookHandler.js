@@ -176,7 +176,7 @@ const update = (request, h) => {
       return response;
     }
     books[findBook] = {
-      ...books[index],
+      ...books[findBook],
       id,
       name,
       year,
